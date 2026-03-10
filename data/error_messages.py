@@ -2,8 +2,8 @@ class ApiErrors:
     # users
     USER_ALREADY_EXISTS = 'User already exists'
     REQUIRED_FIELDS = 'Email, password and name are required fields'
-    INVALID_CREDENTIALS = 'Email or password are incorrect'
-    UNAUTHORIZED = 'You should be authorized'
+    INVALID_CREDENTIALS = 'email or password are incorrect'
+    UNAUTHORIZED = 'You should be authorised'
 
     # orders
     NO_INGREDIENTS = 'Ingredient ids must be provided'

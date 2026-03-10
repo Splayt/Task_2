@@ -77,4 +77,3 @@ class TestUserUpdate:
         assert response.status_code == 401
         assert data['success'] is False
         assert ApiErrors.UNAUTHORIZED in response.text
-

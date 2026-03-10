@@ -23,18 +23,20 @@ class TestOrdersCreate:
         assert response.status_code == 200
         assert response.json()['success'] is True
 
-
     @allure.title('Создание заказа без авторизации с ингредиентами')
     def test_create_order_without_auth(self, api_session):
 
         ingr_resp = ingredients.get_ingredients(api_session)
         ids = ingredients.take_some_ids(ingr_resp)
 
-        response = orders.create_order(api_session, order_payload(ids))
+        response = orders.create_order(
+            api_session,
+            order_payload(ids),
+            # без токена
+        )
 
         assert response.status_code == 200
         assert response.json()['success'] is True
-
 
     @allure.title('Создание заказа без ингредиентов')
     def test_create_order_without_ingredients(self, api_session, registered_user):
@@ -48,10 +50,8 @@ class TestOrdersCreate:
         assert response.status_code == 400
         assert ApiErrors.NO_INGREDIENTS in response.text
 
-
     @allure.title('Ошибка при создании заказа с неверным хешем ингредиентов')
     @allure.description('API возвращает 400 и сообщение об ошибке при невалидных id ингредиентов')
-
     def test_create_order_with_wrong_hash(self, api_session, registered_user):
 
         payload = order_payload([INVALID_INGREDIENT_ID])
@@ -69,4 +69,3 @@ class TestOrdersCreate:
 
         with allure.step('Проверяем текст ошибки'):
             assert data.get('message') == ApiErrors.INVALID_INGREDIENTS
-

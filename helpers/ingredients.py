@@ -7,6 +7,7 @@ def get_ingredients(session):
     return session.get(INGREDIENTS_URL)
 
 
+@allure.step('Take some ingredient ids from response')
 def take_some_ids(response, count=2):
     data = response.json()
     ids = []

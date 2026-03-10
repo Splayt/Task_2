@@ -1,3 +1,4 @@
+# helpers/orders.py
 import allure
 from config.urls import ORDERS_URL
 
@@ -5,7 +6,6 @@ from config.urls import ORDERS_URL
 @allure.step('Create order')
 def create_order(session, payload, token=None):
     headers = None
-
     if token:
         headers = {'Authorization': token}
 
@@ -15,10 +15,7 @@ def create_order(session, payload, token=None):
 @allure.step('Get user orders')
 def get_orders(session, token=None):
     headers = None
-
     if token:
         headers = {'Authorization': token}
 
     return session.get(ORDERS_URL, headers=headers)
-
-
